@@ -1,0 +1,83 @@
+.button-container {
+  width: 100px;
+  text-align: center;
+  vertical-align: center;
+}
+
+.dualler-select {
+  width:150px;
+  -webkit-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 5px;
+  min-width: 150px;
+}
+
+.atl {
+  border: 0;
+  height: 32px;
+  width: 16px;
+  margin-top: 20px;
+  background-size: 100% 100%;
+}
+
+.atl.active {
+  background: url(./double-left.png) no-repeat;
+}
+
+.atl.inactive {
+  background: url(./double-left-inactive.png) no-repeat;
+}
+
+.atr {
+  border: 0;
+  height: 32px;
+  width: 16px;
+  padding-bottom: 30px;
+  background-size: 100% 100%;
+}
+
+.atr.active {
+  background: url(./double-right.png) no-repeat;
+}
+
+.atr.inactive {
+  background: url(./double-right-inactive.png) no-repeat;
+}
+
+.stl {
+  border: 0;
+  height: 32px;
+  width: 16px;
+  background-size: 100% 100%;
+}
+
+.stl.active {
+  background: url(./left-arrow.png) no-repeat;
+}
+
+.stl.inactive {
+  background: url(./left-arrow-inactive.png) no-repeat;
+}
+
+.str {
+  border: 0;
+  height: 32px;
+  width: 16px;
+  background-size: 100% 100%;
+}
+
+.str.active {
+  background: url(./right-arrow.png) no-repeat;
+}
+
+.str.inactive {
+  background: url(./right-arrow-inactive.png) no-repeat;
+}
+
+.dueller-select:active, .dueller-select:hover {
+  outline: none;
+}
