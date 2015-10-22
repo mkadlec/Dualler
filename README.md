@@ -19,5 +19,7 @@ Want to see it in action? [Here you go...](http://mkadlec.github.io/dualler-demo
 - *value*: Unique value of dual list box container
 - *moveAllBtn*: Whether the move all buttons is available.  Defaults to true.
 - *maxAllBtn*:  The threshold on the move-all before issuing a warning.  Defaults to 500.  
+- *store-values*: Store the values in the right box in a hidden field as a comma separated string. Defaults to false.
+- *sort*: true/false, whether to sort the listboxes after each selection.  Defaults to false.
 
 Will update more soon.
