@@ -15,7 +15,8 @@ Want to see it in action? [Here you go...](http://mkadlec.github.io/dualler-demo
 
 ##Options / API
 
-- *title*: Title on the listbox's  
+- *title*: Title on the listbox's 
+- *value*: Unique value of dual list box container
 - *moveAllBtn*: Whether the move all buttons is available.  Defaults to true.
 - *maxAllBtn*:  The threshold on the move-all before issuing a warning.  Defaults to 500.  
 
