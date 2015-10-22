@@ -25,7 +25,7 @@
                 textLength: 45,                 // Maximum text length that is displayed in the select.
                 moveAllBtn: true,               // Whether the append all button is available.
                 maxAllBtn:  500,                // Maximum size of list in which the all button works without warning. See below.
-                selectClass:'Dualler-select',
+                selectClass:'dualler-select',
                 warning:    'Selecting so many items may make your browser unresponsive, are you sure you want to continue?'
             };
 
