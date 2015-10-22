@@ -16,14 +16,16 @@
 
         return this.each(function () {
             var defaults = {
-                element:    $(this).context,    // Select element which creates this dual list box.
-                value:      'id',               // Value that is assigned to the value field in the option.
-                title:      'Test',             // Title of the dual list box.
-                textLength: 45,                 // Maximum text length that is displayed in the select.
-                moveAllBtn: true,               // Whether the append all button is available.
-                maxAllBtn:  500,                // Maximum size of list in which the all button works without warning. See below.
-                selectClass:'dualler-select',
-                warning:    'Selecting so many items may make your browser unresponsive, are you sure you want to continue?'
+                element:        $(this).context,    // Select element which creates this dual list box.
+                value:          'duallar_id',               // Value that is assigned to the value field in the option.
+                title:          'Test',             // Title of the dual list box.
+                textLength:     45,                 // Maximum text length that is displayed in the select.
+                moveAllBtn:     true,               // Whether the append all button is available.
+                maxAllBtn:      500,                // Maximum size of list in which the all button works without warning. See below.
+                selectClass:    'dualler-select',
+                store_values:   false,
+                sort:           false,
+                warning:        'Selecting so many items may make your browser unresponsive, are you sure you want to continue?'
             };
 
             var htmlOptions = {
@@ -33,6 +35,8 @@
                 textLength: $(this).data('textLength'),
                 moveAllBtn: $(this).data('moveAllBtn'),
                 maxAllBtn:  $(this).data('maxAllBtn'),
+                store_values: $(this).data('store_values'),
+                sort:       $(this).data('sort'),
                 selectClass:$(this).data('selectClass')
             };
 
@@ -42,7 +46,7 @@
                 if (item === undefined || item === null) { throw 'Dualler: ' + i + ' is undefined.'; }
             });
 
-            options['parent'] = 'dual-list-box-' + options.value;
+            options['parent'] = 'div_' + options.value;
             options['parentElement'] = '#' + options.parent;
 
             selected = $.extend([{}], selected);
@@ -57,19 +61,19 @@
         var to_box = $(options.parentElement + ' .to');
 
         from_box.dblclick(function() {
-          from_box.find('option:selected').appendTo(to_box);
+          moveRight(from_box, to_box, options);
           handleMovement(options);
         });
 
         to_box.dblclick(function() {
-          to_box.find('option:selected').appendTo(from_box);
+          moveLeft(from_box, to_box, options);
           handleMovement(options);
         });
 
         $(options.parentElement).find('button').bind('click', function() {
             switch ($(this).data('type')) {
                 case 'str': /* Selected to the right. */
-                    from_box.find('option:selected').appendTo(to_box);
+                    moveRight(from_box, to_box, options);
                     $(this).prop('disabled', true);
                     break;
                 case 'atr': /* All to the right. */
@@ -81,9 +85,10 @@
                             }
                         });
                     }
+                    if (options.store_values) { addCommaSeparatedOptionsToHiddenField(options); }
                     break;
                 case 'stl': /* Selected to the left. */
-                    to_box.find('option:selected').remove().appendTo(from_box);
+                    moveLeft(from_box, to_box, options);
                     $(this).prop('disabled', true);
                     break;
                 case 'atl': /* All to the left. */
@@ -95,6 +100,7 @@
                             }
                         });
                     }
+                    if (options.store_values) { addCommaSeparatedOptionsToHiddenField(options); }
                     break;
                 default: break;
             }
@@ -121,19 +127,31 @@
         addListeners(options);
     }
 
-    /** Creates a new dual list box with the right buttons and filter. */
+    function addCommaSeparatedOptionsToHiddenField(options) {
+      var hidden_field = $('#' + options.value);
+      var commaSeparatedOptionValues = '';
+
+      commaSeparatedOptionValues = $('#d_' + options.value + ' option').map(function (i, opt) {
+        return $(opt).val();
+      }).toArray().join(',');
+
+      $(hidden_field).val(commaSeparatedOptionValues)
+    }
+
+    /** Creates a new dual list box with buttons */
     function createDualListBox(options) {
         $(options.element).parent().attr('id', options.parent);
 
         $(options.parentElement).append(
+                '<input type="hidden" id = "' + options.value + '" value="">' +
                 '<div id="left_div" style="float:left;">' +
                 '       <h4><span class="unselected-title"></span></h4>' +
-                '       <select class="from ' + options.selectClass + '" style="height: 200px; width: 100%;" multiple></select>' +
+                '       <select id="' + 's_' + options.value + '" class="from ' + options.selectClass + '" style="height: 200px; width: 100%;" multiple></select>' +
                 '</div>' +
                 (createHorizontalButtons(options.moveAllBtn)) +
                 '<div style="float:left;">' +
                 '       <h4><span class="selected-title"></span></h4>' +
-                '       <select class="to ' + options.selectClass + '" style="height: 200px; width: 100%;" multiple></select>' +
+                '       <select id="' + 'd_' + options.value + '" class="to ' + options.selectClass + '" style="height: 200px; width: 100%;" multiple></select>' +
                 '</div>');
 
         $(options.parentElement + ' .from').prop('name', $(options.element).prop('name'));
@@ -157,11 +175,42 @@
         return button_html;
     }
 
+    function sort_select(control_id) {
+        $('#' + control_id).html($('#' + control_id + ' option').sort(function(a, b) {
+            return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+        }))
+    }
+
+    function moveLeft(from_box, to_box, options) {
+      $(to_box).find('option:selected').appendTo($(from_box));
+      if (options.sort) { sort_select($(from_box).attr('id')); }
+      if (options.store_values) { addCommaSeparatedOptionsToHiddenField(options); }
+    }
+
+    function moveRight(from_box, to_box, options) {
+
+      if (options.store_values) {
+         var hidden_value_field =  $('#' + options.value);
+         var hidden_value = $(hidden_value_field).val();
+         $(from_box).find('option:selected').each(function() {
+           hidden_value += ',' + $(this).val();
+         });
+         $(hidden_value_field).val(hidden_value);
+      }
+
+      $(from_box).find('option:selected').appendTo($(to_box));
+      if (options.sort) { sort_select($(to_box).attr('id')); }
+
+    }
+
     function handleMovement(options) {
         $(options.parentElement + ' .from').find('option:selected').prop('selected', false);
         $(options.parentElement + ' .to').find('option:selected').prop('selected', false);
 
         $(options.parentElement + ' select').find('option').each(function() { $(this).show(); });
+
+        // addCommaSeparatedOptionsToHiddenField(options);
+
 
         toggleButtons(options.parentElement);
     }
