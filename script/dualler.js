@@ -7,7 +7,6 @@
  *   Create a <select> and apply this script to that select via jQuery like so:
  *   $('select').Dualler(); - the Dualling ListBox will than be created for you.
  *
- *
  *   See the default parameters (below) for a complete list of options.
  */
 
@@ -21,11 +20,10 @@
                 value:      'id',               // Value that is assigned to the value field in the option.
                 text:       'name',             // Text that is assigned to the option field.
                 title:      'Test',          // Title of the dual list box.
-                timeout:    500,                // Timeout for when a filter search is started.
                 textLength: 45,                 // Maximum text length that is displayed in the select.
                 moveAllBtn: true,               // Whether the append all button is available.
                 maxAllBtn:  500,                // Maximum size of list in which the all button works without warning. See below.
-                selectClass:'Dualler-select',
+                selectClass:'dualler-select',
                 warning:    'Selecting so many items may make your browser unresponsive, are you sure you want to continue?'
             };
 
@@ -34,7 +32,6 @@
                 value:      $(this).data('value'),
                 text:       $(this).data('text'),
                 title:      $(this).data('title'),
-                timeout:    $(this).data('timeout'),
                 textLength: $(this).data('textLength'),
                 moveAllBtn: $(this).data('moveAllBtn'),
                 maxAllBtn:  $(this).data('maxAllBtn'),
@@ -244,12 +241,4 @@
         });
     };
 
-    /** Simple delay function that can wrap around an existing function and provides a callback. */
-    var delay = (function() {
-        var timer = 0;
-        return function (callback, ms) {
-            clearTimeout(timer);
-            timer = setTimeout(callback, ms);
-        };
-    })();
 })(jQuery);
