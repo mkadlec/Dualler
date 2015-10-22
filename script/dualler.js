@@ -139,13 +139,15 @@
         $(options.parentElement + ' .from').prop('name', $(options.element).prop('name'));
         $(options.parentElement + ' .unselected-title').text('From ' + options.title);
         $(options.parentElement + ' .selected-title').text('To ' + options.title);
+
+        $('#button_div div:first').css('padding-top', options.moveAllBtn ? '80px' : '110px');
     }
 
     /** Creates the buttons when the dual list box is set in horizontal mode. */
     function createHorizontalButtons(copyAllBtn) {
         var button_html = '<div id="button_div" style="float:left;">';
 
-            button_html += (copyAllBtn ? '<div class="button-container" style="padding-top:80px;"><button type="button" class="btn btn-default atr" data-type="atr" style="margin-bottom: 5px;"> </button></div>': '') +
+            button_html += (copyAllBtn ? '<div class="button-container"><button type="button" class="atr" data-type="atr" style="margin-bottom: 5px;"> </button></div>': '') +
                 '<div class="button-container"><button type="button" class="str active" data-type="str" style="margin-bottom: 5px;" disabled> </button></div>';
             button_html += '<div class="button-container"> <button type="button" class="stl active" data-type="stl" style="margin-bottom: 5px;" disabled> </button></div>' +
                 (copyAllBtn ? '<div class="button-container"><button type="button" class="atl active" data-type="atl" style="margin-bottom: 5px;"></button></div>' : '');
