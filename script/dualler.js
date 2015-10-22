@@ -18,8 +18,7 @@
             var defaults = {
                 element:    $(this).context,    // Select element which creates this dual list box.
                 value:      'id',               // Value that is assigned to the value field in the option.
-                text:       'name',             // Text that is assigned to the option field.
-                title:      'Test',          // Title of the dual list box.
+                title:      'Test',             // Title of the dual list box.
                 textLength: 45,                 // Maximum text length that is displayed in the select.
                 moveAllBtn: true,               // Whether the append all button is available.
                 maxAllBtn:  500,                // Maximum size of list in which the all button works without warning. See below.
@@ -30,7 +29,6 @@
             var htmlOptions = {
                 element:    $(this).context,
                 value:      $(this).data('value'),
-                text:       $(this).data('text'),
                 title:      $(this).data('title'),
                 textLength: $(this).data('textLength'),
                 moveAllBtn: $(this).data('moveAllBtn'),
@@ -44,7 +42,7 @@
                 if (item === undefined || item === null) { throw 'Dualler: ' + i + ' is undefined.'; }
             });
 
-            options['parent'] = 'dual-list-box-' + options.title;
+            options['parent'] = 'dual-list-box-' + options.value;
             options['parentElement'] = '#' + options.parent;
 
             selected = $.extend([{}], selected);
