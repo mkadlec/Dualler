@@ -10,6 +10,13 @@ First off you should create a simple `<select id="select-box">` tag. After which
 
 `$('#select-box').Dualler();`
 
+##Demo
+Want to see it in action? [Here you go...](http://mkadlec.github.io/dualler-demo/)
+
 ##Options / API
 
-Will update soon.
+- *title*: Title on the listbox's  
+- *moveAllBtn*: Whether the move all buttons is available.  Defaults to true.
+- *maxAllBtn*:  The threshold on the move-all before issuing a warning.  Defaults to 500.  
+
+Will update more soon.
