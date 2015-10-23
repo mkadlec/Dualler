@@ -23,6 +23,7 @@ Want to see it in action? [Here you go...](http://mkadlec.github.io/dualler-demo
 | `maxAllBtn`  | UInt    | 500        | Integer to determine from which length to display the warning message below. |
 | `store-values` | Boolean | false       | Store the values in the right box in a hidden field as a comma separated string. Defaults to false. |
 | `sort`  | Boolean    | false        | Whether to sort the listboxes after each selection. |
+| `bgColor` | String | #ffffff       | Sets the background color of the listboxes. |
 | `warning`    | String  | 'Selecting...'      | Warning message that is displayed when trying to move large amounts of elements. |
 
 
