@@ -1,4 +1,4 @@
-#Dualler - Simple Dual list box
+#Dualler - Simple dual list box jquery plugin
 
 ##Synopsis
 
